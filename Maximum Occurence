@@ -1,0 +1,51 @@
+//In two n-sized array containing the starting and ending indices of we have to find the maximum occurence of any element in C
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main()
+{
+  int n;
+  scanf("%d",&n);
+  int* L=(int *)malloc(n*sizeof(int));
+  int* R=(int *)malloc(n*sizeof(int));
+  for(int i=0;i<n;i++)
+  {
+      scanf("%d",&L[i]);
+  }
+  for(int i=0;i<n;i++)
+  {
+      scanf("%d",&R[i]);
+  }
+  int max_element=-1;
+  for(int i=0;i<n;i++)
+  {
+      if(R[i]>max_element)
+      {
+          max_element=R[i];
+      }
+  }
+  int* arr=(int *)calloc((max_element+2),sizeof(int));
+  int prev=0;
+  int max=0;
+  for(int i=0;i<n;i++)
+  {
+      arr[L[i]]++;
+      arr[R[i]+1]--;
+  }
+  
+  for(int i=0;i<=max_element+1;i++)
+  {
+      if(prev+arr[i]>max)
+      {
+          max=prev+arr[i];
+          
+      }
+     prev=prev+arr[i]; 
+  }
+  printf("%d",max);
+  
+}
+//Complexity O(n)+O(n)+O(max_element)
