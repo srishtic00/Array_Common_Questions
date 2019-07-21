@@ -1,0 +1,53 @@
+//merge the intersecting intervals in C and return the new intervals
+#include <stdio.h>
+#include <stdlib.h>
+struct range{
+    int start;
+    int end;
+};
+int main()
+{
+    int comparator(const void* a,const void* b)
+{
+    return ((((struct range *)a)->start)-(((struct range *)b)->start));
+}
+ int n;
+ scanf("%d",&n);
+ struct range * elem=(struct range *)malloc(n*sizeof(struct range));
+ for(int i=0;i<n;i++)
+ {
+     scanf("%d",&elem[i].start);
+     scanf("%d",&elem[i].end);
+ }
+ qsort(elem,n,sizeof(elem[0]),comparator);
+ struct range * elem2=(struct range *)malloc(1*sizeof(struct range));
+ int min=elem[0].start;
+ int max=elem[0].end;
+ int k=0;
+ for(int j=1;j<n;j++)
+ {
+   if(elem[j].start<max)
+   {
+       max=(max>(elem[j].end))?max:(elem[j].end);
+   }
+   else
+   {
+     elem2[k].start=min;
+     elem2[k].end=max;
+     min=elem[j].start;
+     max=elem[j].end;
+     ++k;
+     elem2 = (int *)realloc(elem2, sizeof(struct range)*(k+1));
+   }
+ }
+ elem2[k].start=min;
+ elem2[k].end=max;
+ for(int i=0;i<k+1;i++)
+ {
+     printf("%d ",elem2[i].start);
+     printf("%d ",elem2[i].end);
+     printf("\n");
+ }
+ 
+return 0;
+}
