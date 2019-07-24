@@ -1,0 +1,31 @@
+/**
+ * @input A : Integer array
+ * @input n1 : Integer array's ( A ) length
+ * @input B : Integer array
+ * @input n2 : Integer array's ( B ) length
+ * @input C : Integer array
+ * @input n3 : Integer array's ( C ) length
+ * 
+ * @Output Integer
+ */
+int solve(int* A, int n1, int* B, int n2, int* C, int n3) {
+    int min=999999;
+    int i=0,j=0,k=0;
+    while(i<n1 && j<n2 && k<n3)
+    {
+        int curmin=B[j]<C[k]?B[j]:C[k];
+        int curmin2=A[i]<curmin?A[i]:curmin;
+        int curmax=B[j]>C[k]?B[j]:C[k];
+        int curmax2=A[i]>curmax?A[i]:curmax;
+        int present=curmax2-curmin2;
+        min=(min<present)?min:present;
+        if(curmin2==A[i])
+        i++;
+        else if(curmin2==B[j])
+        j++;
+        else
+        k++;
+        
+    }
+    return min;
+}
