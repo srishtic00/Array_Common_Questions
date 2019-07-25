@@ -1,0 +1,48 @@
+/**
+ * @input A : Read only ( DON'T MODIFY ) Integer array
+ * @input n1 : Integer array's ( A ) length
+ * @input B : Integer
+ * 
+ * @Output Integer array. You need to malloc memory, and fill the length in len1
+ */
+int* searchRange(const int* A, int n1, int B, int *len1) {
+    
+    *len1 = 2;
+    int *result = (int *)malloc(*len1*sizeof(int));
+    int low=0,high=n1-1,mid;
+    result[0] = -1;
+    result[1] = -1;
+    
+    
+    while(low <= high)
+    {
+        mid = (low+high)/2;
+        if(A[mid] == B)
+        {
+            result[0] = mid;
+            high = mid-1;
+        }
+        else if(A[mid]<B)
+        low = mid+1;
+        else
+        high =  mid-1;
+    }
+    
+    
+    low = 0;high = n1-1;
+    while(low <= high)
+    {
+        mid = (low+high)/2;
+        if(A[mid] == B)
+        {
+            result[1] = mid;
+            low = mid+1;
+        }
+        else if(A[mid]<B)
+        low = mid+1;
+        else
+        high = mid-1;
+    }
+   
+    return result;
+}
