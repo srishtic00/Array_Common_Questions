@@ -1,0 +1,47 @@
+/**
+ * @input A : Integer array
+ * @input n1 : Integer array's ( A ) length
+ * @input B : Integer
+ * 
+ * @Output Integer array. You need to malloc memory, and fill the length in len1
+ */
+int* maxone(int* A, int n1, int B, int *len1) {
+    int count = 0; 
+    int l = 0; 
+    int max_len = 0; 
+    int index=-1;
+    int i;
+    for (i = 0; i < n1; i++) { 
+        if (A[i] == 0) 
+            count++; 
+  
+         
+        while (count > B) { 
+            if (A[l] == 0) 
+                count--; 
+            l++; 
+        } 
+  
+        if(max_len<i-l+1)
+        {
+            max_len=i-l+1;
+            index=l;
+        }
+        
+        
+    } 
+  
+    
+    int *C=(int *)malloc(max_len*sizeof(int));
+    int k=0;
+    *len1=max_len;
+    for(i=index;i<index+max_len;i++)
+    {
+        C[k++]=i;
+        
+    }
+    return C;
+    
+    
+    
+}
