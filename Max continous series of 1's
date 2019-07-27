@@ -6,42 +6,34 @@
  * @Output Integer array. You need to malloc memory, and fill the length in len1
  */
 int* maxone(int* A, int n1, int B, int *len1) {
-    int count = 0; 
-    int l = 0; 
-    int max_len = 0; 
-    int index=-1;
-    int i;
-    for (i = 0; i < n1; i++) { 
-        if (A[i] == 0) 
-            count++; 
-  
-         
-        while (count > B) { 
-            if (A[l] == 0) 
-                count--; 
-            l++; 
-        } 
-  
-        if(max_len<i-l+1)
-        {
-            max_len=i-l+1;
-            index=l;
-        }
-        
-        
-    } 
-  
     
-    int *C=(int *)malloc(max_len*sizeof(int));
-    int k=0;
-    *len1=max_len;
-    for(i=index;i<index+max_len;i++)
+      *len1=n1;
+    int *res=(int *)malloc(*len1 * sizeof(int));
+    int left=0,right=0,maxdiff=-1,zeros=0,best_r,best_l,i,j=0;
+    while(right<n1)
     {
-        C[k++]=i;
-        
+        if(zeros<=B)
+        {
+            if(A[right]==0)
+            zeros++;
+            right++;
+        }
+        if(zeros>B)
+        {
+            if(A[left]==0)
+            zeros--;
+            left++;
+        }
+        if(right-left>maxdiff)
+        {
+            maxdiff=right-left;
+            best_r=right-1;
+            best_l=left;
+        }
     }
-    return C;
-    
-    
+    for(i=best_l;i<=best_r;i++)
+    res[j++]=i;
+    *len1=best_r-best_l+1;
+    return res;
     
 }
